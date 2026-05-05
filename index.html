@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PulseMesh DePIN Video Website</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Primary">
+        <a class="brand" href="#" aria-label="PulseMesh home">
+          <span class="brand-mark">PM</span>
+          <span>
+            <strong>PulseMesh</strong>
+            <small>DePIN comms</small>
+          </span>
+        </a>
+
+        <nav class="nav-list" aria-label="Workspace">
+          <a class="nav-item is-active" href="#studio">
+            <span class="icon" aria-hidden="true">⌁</span>
+            Studio
+          </a>
+          <a class="nav-item" href="#nodes">
+            <span class="icon" aria-hidden="true">◌</span>
+            Nodes
+          </a>
+          <a class="nav-item" href="#rewards">
+            <span class="icon" aria-hidden="true">◇</span>
+            Rewards
+          </a>
+          <a class="nav-item" href="#schedule">
+            <span class="icon" aria-hidden="true">⌚</span>
+            Schedule
+          </a>
+        </nav>
+
+        <div class="wallet-card">
+          <small>Wallet</small>
+          <strong id="walletAddress">Not connected</strong>
+          <span class="wallet-row"><b>2,418</b> PMESH</span>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Live room</p>
+            <h1>Web3 video rooms over community nodes</h1>
+          </div>
+          <div class="top-actions">
+            <button class="ghost-button" id="connectWalletButton" type="button">Connect wallet</button>
+            <button class="icon-button" id="themeButton" type="button" title="Shuffle theme" aria-label="Shuffle theme">✦</button>
+            <button class="primary-button" id="copyRoomButton" type="button">Copy room link</button>
+          </div>
+        </header>
+
+        <section class="hero-grid" id="studio">
+          <article class="stage">
+            <div class="stage-topline">
+              <span class="status-pill"><i></i> Routed via Mumbai Edge</span>
+              <span id="roomCode">room/pulse-88</span>
+            </div>
+
+            <div class="call-grid" aria-label="Call participants">
+              <div class="video-tile host-tile">
+                <video id="localVideo" autoplay muted playsinline></video>
+                <canvas id="meshCanvas" width="720" height="420"></canvas>
+                <div class="tile-meta">
+                  <strong>You</strong>
+                  <span>Host</span>
+                </div>
+              </div>
+              <div class="video-tile avatar-tile hot">
+                <span>AK</span>
+                <div class="tile-meta">
+                  <strong>Aki</strong>
+                  <span>Lisbon</span>
+                </div>
+              </div>
+              <div class="video-tile avatar-tile cool">
+                <span>NV</span>
+                <div class="tile-meta">
+                  <strong>Niva</strong>
+                  <span>Bengaluru</span>
+                </div>
+              </div>
+              <div class="video-tile avatar-tile lime">
+                <span>QJ</span>
+                <div class="tile-meta">
+                  <strong>Quinn</strong>
+                  <span>Toronto</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="control-dock" aria-label="Call controls">
+              <button class="dock-button is-on" id="cameraButton" type="button" title="Camera" aria-label="Camera">◐</button>
+              <button class="dock-button is-on" id="micButton" type="button" title="Microphone" aria-label="Microphone">◍</button>
+              <button class="dock-button" id="shareButton" type="button" title="Screen share" aria-label="Screen share">▣</button>
+              <button class="dock-button" id="recordButton" type="button" title="Record" aria-label="Record">●</button>
+              <button class="dock-button" id="signButton" type="button" title="Sign room entry" aria-label="Sign room entry">◇</button>
+              <button class="dock-button end-call" type="button" title="Leave" aria-label="Leave">×</button>
+            </div>
+          </article>
+
+          <aside class="right-rail" aria-label="Room intelligence">
+            <section class="panel">
+              <div class="panel-heading">
+                <h2>Routing</h2>
+                <span id="qualityBadge">98%</span>
+              </div>
+              <div class="route-map">
+                <span class="route-node home">Host</span>
+                <span class="route-node edge">Edge</span>
+                <span class="route-node peer">Peers</span>
+              </div>
+              <div class="metric-grid">
+                <div><small>Latency</small><strong id="latencyValue">42ms</strong></div>
+                <div><small>Uptime</small><strong>99.9%</strong></div>
+                <div><small>Relays</small><strong id="relayValue">18</strong></div>
+                <div><small>Cost</small><strong>$0.03</strong></div>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-heading">
+                <h2>AI Notes</h2>
+                <button class="ghost-button" id="summarizeButton" type="button">Summarize</button>
+              </div>
+              <ul class="note-list" id="noteList">
+                <li>Bandwidth pool moved to Mumbai Edge.</li>
+                <li>Creator access token gated at 50 PMESH.</li>
+                <li>Recording hash will anchor after the room closes.</li>
+              </ul>
+            </section>
+          </aside>
+        </section>
+
+        <section class="dashboard-grid">
+          <article class="panel wide" id="nodes">
+            <div class="panel-heading">
+              <h2>Node Market</h2>
+              <div class="segmented" role="tablist" aria-label="Node filter">
+                <button class="is-selected" type="button" data-filter="all">All</button>
+                <button type="button" data-filter="asia">Asia</button>
+                <button type="button" data-filter="eu">EU</button>
+              </div>
+            </div>
+            <div class="node-table" id="nodeTable"></div>
+          </article>
+
+          <article class="panel" id="rewards">
+            <div class="panel-heading">
+              <h2>Rewards</h2>
+              <span>epoch 204</span>
+            </div>
+            <div class="reward-meter">
+              <strong id="rewardValue">128.6</strong>
+              <small>PMESH earned</small>
+            </div>
+            <label class="slider-label" for="stakeSlider">
+              Stake split
+              <span id="stakeValue">40%</span>
+            </label>
+            <input id="stakeSlider" type="range" min="10" max="90" value="40" />
+            <div class="reward-row">
+              <span>Host rebate</span>
+              <strong id="rebateValue">60%</strong>
+            </div>
+          </article>
+
+          <article class="panel" id="schedule">
+            <div class="panel-heading">
+              <h2>Rooms</h2>
+              <button class="icon-button compact" id="addRoomButton" type="button" title="Add room" aria-label="Add room">+</button>
+            </div>
+            <div class="room-list" id="roomList"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-heading">
+              <h2>Access</h2>
+              <span>Token gate</span>
+            </div>
+            <form class="gate-form" id="gateForm">
+              <label>
+                Minimum PMESH
+                <input id="gateInput" type="number" min="0" value="50" />
+              </label>
+              <label class="toggle-row">
+                NFT pass
+                <input id="nftToggle" type="checkbox" checked />
+              </label>
+              <button class="primary-button" type="submit">Update gate</button>
+            </form>
+            <p class="form-status" id="gateStatus">Creators with 50 PMESH or pass can join.</p>
+          </article>
+
+          <article class="panel chain-panel">
+            <div class="panel-heading">
+              <h2>Chain Settlement</h2>
+              <span id="chainName">Polygon Amoy</span>
+            </div>
+            <div class="contract-box">
+              <small>Room contract</small>
+              <strong>0x8F12...C04D</strong>
+            </div>
+            <div class="chain-actions">
+              <button class="primary-button" id="mintKeyButton" type="button">Mint room key</button>
+              <button class="ghost-button" id="settleButton" type="button">Settle rewards</button>
+            </div>
+            <ul class="event-log" id="eventLog">
+              <li>Room key contract loaded.</li>
+              <li>Node payments stream per minute.</li>
+            </ul>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
